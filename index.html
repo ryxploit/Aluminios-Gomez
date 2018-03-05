@@ -43,7 +43,7 @@
                                 <div class="card text-white bg-primary mb-2 " style="max-width: 18rem;">
                                         <div class="card-header">FOLIO</div>
                                         <div class="card-body">
-                                          <h5 class="card-title" id="folio"></h5>
+                                          <h5 class="card-title" id="folio">{{ id }}</h5>
                                           <p class="card-text"></p>
                                         </div>
                                       </div>
@@ -74,7 +74,7 @@
                                         </ul>
                                     </div>
                                     <div class="col">
-                                   <p class="text-center"><b>$ {{ precio  }} </b></p>   
+                                   <p class="text-center" v-for="itemT in total"> Subtotal $ <b id="sub">{{ subTotal }}</b> <br>  Iva $ <b id="iv">{{ ivaServicio }}</b> <br> Total <b id="to">$ {{ itemT  }} </b>   </p>   
                                     </div>
                                   </div>
 
@@ -88,6 +88,10 @@
         
                   
     </div>
+    <!-- As a heading -->
+<nav class="navbar navbar-light bg-light">
+  <span class="navbar-brand mb-0 h1">Presupuesto Gomez</span>
+</nav>
     <div class="container">
         <form>
             <div class="form-group">
@@ -112,22 +116,30 @@
            
             <div class="form-row">
             <div class="form-group col-md-8">
-              <label for="trabajo">Trabajo</label>
+              <label for="trabajo">Servicio</label>
               <textarea class="form-control" id=""  rows="10"  v-model="name"></textarea>
             </div>
 
             <div class="form-group col-md-2">
-                <label for="precio">precio</label>
-                <input type="text" class="form-control" v-model="precio" placeholder="">
+                <label for="precio">Precio</label>
+                  <input type="text" class="form-control" id="pre" v-model="precio" placeholder="Precio">
               </div>
+              
               <div class="form-group col-md-2">
-                  <label for="iva">iva</label>
-                  <input type="text" class="form-control" v-model="iva" placeholder="">
+                <label for="precio">Procentaje de IVA</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">%</div>
+                  </div>
+                  <input type="text" class="form-control" id="" v-model="iva" placeholder="IVA">
                 </div>
+              </div>
+
             </div>
 
-            <button type="button" class="btn btn-info" v-on:click="addname">Generar</button>
-            <button type="button" class="btn btn-light"  onclick="printDiv('presupuesto')"  id="print" >Imprimir</button>
+            <button type="button" class="btn btn-info" v-on:click="add">Generar</button>
+            <button type="button" class="btn btn-light"  onclick="printDiv('presupuesto'),foli()"  id="print" >Imprimir</button>
+            <p>Has Generado {{ counter }} Servicios.</p>
           </form>
     </div>
     
@@ -138,66 +150,100 @@
                   
 
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- jQuery first, then Popper.js,vue.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="vue.js"></script>
+    
 
-    <script>
+    <!-- Este  script Vue.js 2.0 -->   
+      <script>
     
         new Vue({
             el: '#main',
     
             data: {
-              people:[]
+              people:[],
+              total:[],
+              counter: 0,
+              ivaServicio:0,
+              subTotal:0,
+              cantTotal:0,
+              id:0
             },
             name: '',
             methods:{
-                addname: function(){
+                add: function(){
                     this.people.push(this.name);
                     this.name = '';
+
+                     this.counter += 1
+                     
+                       this.ivaServicio =  this.precio * (this.iva/100) + ".00"
+ 
+                      this.cantTotal = parseInt(this.precio)  + parseInt(this.ivaServicio)
+                      
+                      this.subTotal = this.precio + ".00"
+                   
+                      this.total.push(this.cantTotal + ".00");
+                       
+                      this.precio = '';
+
+                      this.iva = '';
+                      //Generar folio aleatorio
+                      var d = new Date();
+                      var n = d.getMilliseconds();
+        
+                      this.id = n
+
                 }
+                
             }
         })
-        </script>
+      </script>
 
-    <script>
+    <!-- Este  script para abrir Mostrar fecha actual --> 
+        <script> 
       
-       var f = new Date();
-        var fe = f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
+           var f = new Date();
+            var fe = f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
 
             $(function() {
               $('#date').text(fe);
              });
 
-     </script>
+        </script>
 
-     <script>
+    
 
-     for( i = 1;i < 10; i++){
-        $('#folio').text(i);
-     }
+    <!-- Este  script para esconder el Presupuesto -->   
+        <script>
+     
+          $("#presupuesto").css("display", "none");
 
-     $("#presupuesto").css("display", "none");
+        </script>
 
-     </script>
-<!-- Este emi script para abrir mi ventana modal -->    
-<script>
- function printDiv(nombreDiv) {
+    <!-- Este  script para Imprimir Presupuesto -->    
+        <script>
+          function printDiv(nombreDiv) {
 
-     var contenido= document.getElementById(nombreDiv).innerHTML;
-     var contenidoOriginal= document.body.innerHTML;
+              var contenido= document.getElementById(nombreDiv).innerHTML;
+              var contenidoOriginal= document.body.innerHTML;
 
-     document.body.innerHTML = contenido;
+              document.body.innerHTML = contenido;
 
-     window.print();
+              window.print();
 
-     document.body.innerHTML = contenidoOriginal;
-}
+              document.body.innerHTML = contenidoOriginal;
+
+              location.reload();
+          }
+
+        </script>
 
 
-</script>
+
 
 </body>
 </html>
