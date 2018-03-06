@@ -70,18 +70,13 @@
                             <div class="row">
                                     <div class="col">
                                         <ul>
-                                            <li v-for="item in people">{{ item }}</li>
+                                            <li v-for="(item,index) in people"> <b>{{ index }} :</b>  {{ item }} <br> <br> </li> 
                                         </ul>
                                     </div>
                                     <div class="col">
-
-                                        <p class="text-center"  v-for="(itemT,index) in total">{{ index }} - {{ itemT  }}   </p> 
-                                           
+                                        <p class="text-center"  v-for="(itemT,index) in total">{{ index }} : {{ itemT  }} </p> 
                                     </div>
                                   </div>
-
-                          
-
                         </div>
                         <div class="card-footer ">
                                 FIRMA:_________________________________________________
