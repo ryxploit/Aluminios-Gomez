@@ -74,9 +74,9 @@
                                         </ul>
                                     </div>
                                     <div class="col">
-                                        <p class="text-center" v-for="itemS in subTotal"> Subtotal $ <b>{{ itemS }}</b></p> <br>  
 
-                                   <p class="text-center" v-for="itemT in total">  Total <b id="to">$ {{ itemT  }} </b>   </p>   
+                                        <p class="text-center"  v-for="(itemT,index) in total">{{ index }} - {{ itemT  }}   </p> 
+                                           
                                     </div>
                                   </div>
 
@@ -169,9 +169,10 @@
               people:[],
               total:[],
               counter: 0,
-              ivaServicio:[],
-              subTotal:[],
+              ivaServicio:0,
+              subTotal:0,
               cantTotal:[],
+              too:0,
               id:0
             },
             name: '',
@@ -182,17 +183,14 @@
 
                      this.counter += 1
 
-                      this.subTotal.push(this.precio + ".00") 
+                      this.subTotal = this.precio + ".00" 
                      
                        this.ivaServicio =  this.precio * (this.iva/100) + ".00"
  
                       this.cantTotal = parseInt(this.precio)  + parseInt(this.ivaServicio)
                       
-                    
-                   
-                      this.total.push(this.cantTotal + ".00" );
-                      
-                       
+                      this.total.push("Subtotal\n" + this.subTotal + " + " + " Iva\n " + this.ivaServicio + " =\n "  +  this.cantTotal + ".00" );
+                         
                       this.precio = '';
 
                       this.iva = '';
