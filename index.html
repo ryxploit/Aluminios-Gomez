@@ -70,11 +70,11 @@
                             <div class="row">
                                     <div class="col">
                                         <ul>
-                                            <li v-for="(item,index) in people"> <b>{{ index }} :</b>  {{ item }} <br> <br> </li> 
+                                            <li v-for="item in Servicioadd">  {{ item }} <br> <br> </li> 
                                         </ul>
                                     </div>
                                     <div class="col">
-                                        <p class="text-center"  v-for="(itemT,index) in total">{{ index }} : {{ itemT  }} </p> 
+                                        <p class="text-center"  v-for="itemT in total"> {{ itemT  }} </p> 
                                     </div>
                                   </div>
                         </div>
@@ -135,7 +135,7 @@
             </div>
 
             <button type="button" class="btn btn-info" v-on:click="add">Generar</button>
-            <button type="button" class="btn btn-light"  onclick="printDiv('presupuesto'),foli()"  id="print" >Imprimir</button>
+            <button type="button" class="btn btn-light"  onclick="printPRE('presupuesto'),foli()"  id="print" >Imprimir</button>
             <p>Has Generado {{ counter }} Servicios.</p>
           </form>
     </div>
@@ -161,30 +161,31 @@
             el: '#main',
     
             data: {
-              people:[],
+              Servicioadd:[],
               total:[],
               counter: 0,
               ivaServicio:0,
               subTotal:0,
               cantTotal:[],
-              too:0,
               id:0
             },
             name: '',
             methods:{
                 add: function(){
-                    this.people.push(this.name);
+
+                   this.counter += 1
+
+                    this.Servicioadd.push(this.counter+ ":\n " + this.name);
                     this.name = '';
 
-                     this.counter += 1
-
+                    
                       this.subTotal = this.precio + ".00" 
                      
                        this.ivaServicio =  this.precio * (this.iva/100) + ".00"
  
                       this.cantTotal = parseInt(this.precio)  + parseInt(this.ivaServicio)
                       
-                      this.total.push("Subtotal\n" + this.subTotal + " + " + " Iva\n " + this.ivaServicio + " =\n "  +  this.cantTotal + ".00" );
+                      this.total.push(this.counter+ ":\n " +"Subtotal\n" + this.subTotal + " + " + " Iva\n " + this.ivaServicio + " =\n "  +  this.cantTotal + ".00" );
                          
                       this.precio = '';
 
@@ -224,9 +225,9 @@
 
     <!-- Este  script para Imprimir Presupuesto -->    
         <script>
-          function printDiv(nombreDiv) {
+          function printPRE(contenidoPRE) {
 
-              var contenido= document.getElementById(nombreDiv).innerHTML;
+              var contenido= document.getElementById(contenidoPRE).innerHTML;
               var contenidoOriginal= document.body.innerHTML;
 
               document.body.innerHTML = contenido;
@@ -239,8 +240,6 @@
           }
 
         </script>
-
-
 
 
 </body>
