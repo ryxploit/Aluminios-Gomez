@@ -10,80 +10,66 @@
 
     <title>PRESUPUESTO</title>
 
-
   </head>
   <body>
 
-      <div id="main">
+<div id="main">
 
-    <div class="container" id="presupuesto">
+  <div class="container" id="presupuesto">
             
-            
-            
+    <div class="row">
+      <div class="col-10">
+        <h1 class="text-center text-primary">"PRESUPUESTO"</h1>
+        <h1 class="text-center text-primary">Vidrio y Alumio "Gomez"</h1>
+        <h2 class="text-center text-primary">Mario Gomez Quintero</h2>
+        <h3 class="text-center text-primary">BERNARDO VAZQUEZ No.1604 COL.ESTERO</h3>
+        <h3 class="text-center text-primary">TEL. 985-08-59 CEL.(669)158-71-31 MAZATLAN , SINALOA</h3>
 
-                  <div class="row">
-                        <div class="col-10">
-                                <h1 class="text-center text-primary">"PRESUPUESTO"</h1>
-                                <h1 class="text-center text-primary">Vidrio y Alumio "Gomez"</h1>
-                                <h2 class="text-center text-primary">Mario Gomez Quintero</h2>
-                                <h3 class="text-center text-primary">BERNARDO VAZQUEZ No.1604 COL.ESTERO</h3>
-                                <h3 class="text-center text-primary">TEL. 985-08-59 CEL.(669)158-71-31 MAZATLAN , SINALOA</h3>
+          <div class="card border-primary" style="width: 50rem;" >
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item text-primary">NOMBRE: <span class="text-dark" style="font-size: large;"><b>{{ nombre }}</b></span></li>
+                <li class="list-group-item text-primary">DOMICILIO: <span class="text-dark" style="font-size: large;"><b>{{ domicilio }}</b></span></li>
+                <li class="list-group-item text-primary">CIUDAD: <span class="text-dark" style="font-size: large;"><b>{{ ciudad }}</b></span></li>
+                <li class="list-group-item text-primary">RFC: <span class="text-dark" style="font-size: large;"><b>{{ rfc }}</b></span></li>
+              </ul>
+          </div>
 
-                                <div class="card border-primary" style="width: 50rem;" >
-                                        <ul class="list-group list-group-flush">
-                                          <li class="list-group-item text-primary">NOMBRE: <span class="text-dark">{{ nombre }}</span>  </li>
-                                          <li class="list-group-item text-primary">DOMICILIO: <span class="text-dark">{{ domicilio }}</span></li>
-                                          <li class="list-group-item text-primary">CIUDAD: <span class="text-dark">{{ ciudad }}</span></li>
-                                          <li class="list-group-item text-primary">RFC: <span class="text-dark">{{ rfc }}</span></li>
-                                        </ul>
-                                      </div>
+      </div>
+      <div class="col-2">
+        <div class="card text-white bg-primary mb-2 " style="max-width: 18rem;">
+          <div class="card-header">FOLIO</div>
+            <div class="card-body">
+            <h5 class="card-title" id="folio">{{ id }}</h5>
+            <p class="card-text"></p>
+          </div>
+        </div>
 
-                        </div>
-                        <div class="col-2">
-                                <div class="card text-white bg-primary mb-2 " style="max-width: 18rem;">
-                                        <div class="card-header">FOLIO</div>
-                                        <div class="card-body">
-                                          <h5 class="card-title" id="folio">{{ id }}</h5>
-                                          <p class="card-text"></p>
-                                        </div>
-                                      </div>
-
-                                      <div class="card text-white bg-primary mb-2 " style="max-width: 18rem;">
-                                        <div class="card-header">FECHA</div>
-                                        <div class="card-body">
-                                          <h5 class="card-title" id="date"></h5>
-                                          <p class="card-text"></p>
-                                        </div>
-                                      </div>
-                        </div>
-                      </div>
-
-                 
+        <div class="card text-white bg-primary mb-2 " style="max-width: 18rem;">
+          <div class="card-header">FECHA</div>
+            <div class="card-body">
+            <h5 class="card-title" id="date"></h5>
+            <p class="card-text"></p>
+            </div>
+          </div>
+      </div>
+    </div>
 
             <Hr></Hr>
             
-            
-            
-            <div class="card border-primary">
-                    <div class="card-body">
+    <div class="card border-primary">
+      <div class="card-body">                  
+        <pre  style="border-color: white;font-size: large;">
+          <ul>
+            <li v-for="item in Servicioadd" class="text-justify" ><b> {{ item }}</b> <br> </li> 
+          </ul>
+        </pre>
 
-                            <div class="row">
-                                    <div class="col">
-                                        <ul>
-                                            <li v-for="item in Servicioadd">  {{ item }} <br> <br> </li> 
-                                        </ul>
-                                    </div>
-                                    <div class="col">
-                                        <p class="text-center"  v-for="itemT in total"> {{ itemT  }} </p> 
-                                    </div>
-                                  </div>
-                        </div>
-                        <div class="card-footer ">
-                                FIRMA:_________________________________________________
-                              </div>
-                  </div>
-        
-                  
+      <div class="card-footer ">
+            FIRMA:_________________________________________________
+      </div>
+      </div>
+    </div>
+           
     </div>
     <!-- As a heading -->
 <nav class="navbar navbar-light bg-light">
@@ -111,15 +97,15 @@
                     <input type="text" v-model="rfc" class="form-control"  placeholder="">
                   </div>
            
-            <div class="form-row">
-            <div class="form-group col-md-8">
-              <label for="trabajo">Servicio</label>
-              <textarea class="form-control" id=""  rows="10"  v-model="name"></textarea>
-            </div>
+              <div class="form-row">
+              <div class="form-group col-md-8">
+                <label for="trabajo">Servicio</label>
+                <textarea class="form-control" id=""  rows="10"  v-model="name"></textarea>
+              </div>
 
-            <div class="form-group col-md-2">
+              <div class="form-group col-md-2">
                 <label for="precio">Precio</label>
-                  <input type="text" class="form-control" id="pre" v-model="precio" placeholder="Precio">
+                <input type="text" class="form-control" id="pre" v-model="precio" placeholder="Precio">
               </div>
               
               <div class="form-group col-md-2">
@@ -131,20 +117,14 @@
                   <input type="text" class="form-control" id="" v-model="iva" placeholder="IVA">
                 </div>
               </div>
-
-            </div>
+              </div>
 
             <button type="button" class="btn btn-info" v-on:click="add">Generar</button>
             <button type="button" class="btn btn-light"  onclick="printPRE('presupuesto'),foli()"  id="print" >Imprimir</button>
             <p>Has Generado {{ counter }} Servicios.</p>
           </form>
-    </div>
-    
-    
-    </div>
-
-   
-                  
+  </div>   
+</div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js,vue.js, then Bootstrap JS -->
@@ -162,7 +142,6 @@
     
             data: {
               Servicioadd:[],
-              total:[],
               counter: 0,
               ivaServicio:0,
               subTotal:0,
@@ -173,23 +152,24 @@
             methods:{
                 add: function(){
 
-                   this.counter += 1
+                      this.counter += 1
 
-                    this.Servicioadd.push(this.counter+ ":\n " + this.name);
-                    this.name = '';
-
-                    
                       this.subTotal = this.precio + ".00" 
                      
-                       this.ivaServicio =  this.precio * (this.iva/100) + ".00"
+                      this.ivaServicio =  this.precio * (this.iva/100) + ".00"
  
-                      this.cantTotal = parseInt(this.precio)  + parseInt(this.ivaServicio)
+                      this.cantTotal = parseInt(this.precio)  + parseInt(this.ivaServicio) +".00"
                       
-                      this.total.push(this.counter+ ":\n " +"Subtotal\n" + this.subTotal + " + " + " Iva\n " + this.ivaServicio + " =\n "  +  this.cantTotal + ".00" );
+                      this.Servicioadd.push(this.counter+ ": " + this.name + "\n" +
+                      "\nSuptotal: " + this.subTotal + "\nIva: " + this.ivaServicio + 
+                       "\nTotal: " + this.cantTotal );
+                    
+                     this.name = '';
                          
                       this.precio = '';
 
                       this.iva = '';
+
                       //Generar folio aleatorio
                       var d = new Date();
                       var n = d.getMilliseconds();
